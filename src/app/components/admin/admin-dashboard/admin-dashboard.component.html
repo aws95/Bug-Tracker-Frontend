@@ -1,0 +1,398 @@
+<mat-sidenav-container fullscreen>
+
+    <mat-sidenav-content class="bg">
+        <mat-toolbar class="mat-elevation-z6" color="warn">
+            <button mat-button routerlink="/"><img src="../../../../../assets/img/bug-logo.png" alt="Bug Tracker Logo"
+                    style="height: 26px;width: 26px;"> Bug
+                Tracker
+            </button>
+            <span class="toolbar-spacer"></span>
+            <span matBadge="15" matBadgeColor="primary" matBadgePosition="above before" class="material-icons">
+                notification_important
+            </span>
+            <button mat-button routerLink="/login"><span class="material-icons">
+                    exit_to_app
+                </span>SignOut</button>
+
+
+        </mat-toolbar>
+        <div class="main-content">
+            <mat-tab-group dynamicHeight>
+                <mat-tab label="Add User">
+                    <br><br>
+                    <div class="example-small-box mat-elevation-z4">
+                        <mat-card>
+                            <mat-card-title>Add User</mat-card-title>
+                            <mat-card-content>
+                                <form [formGroup]="formUser" (ngSubmit)="submitUser()">
+                                    <mat-grid-list cols="4" rowHeight="6:1">
+                                        <mat-grid-tile>
+                                            <p>
+                                                <mat-form-field>
+                                                    <input type="text" matInput placeholder="Full Name"
+                                                        formControlName="name">
+                                                </mat-form-field>
+                                            </p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile>
+                                            <p>
+                                                <mat-form-field>
+                                                    <input type="email" matInput placeholder="Email"
+                                                        formControlName="email">
+                                                </mat-form-field>
+                                            </p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile>
+                                            <p>
+                                                <mat-form-field>
+                                                    <input type="password" matInput placeholder="Password"
+                                                        formControlName="password">
+                                                </mat-form-field>
+                                            </p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile>
+                                            <p>
+                                                <mat-form-field>
+                                                    <mat-label>Role</mat-label>
+                                                    <mat-select (selectionChange)="changeRole($event.value)"
+                                                        [formControl]="userRole">
+                                                        <mat-option *ngFor="let role of roles" [value]="role.value">
+                                                            {{role.viewValue}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </p>
+                                        </mat-grid-tile>
+                                    </mat-grid-list>
+                                    <div class="button">
+                                        <button type="submit" mat-raised-button color="primary">Send</button>
+
+                                    </div>
+                                </form>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Add Project">
+                    <div class="example-large-box mat-elevation-z4">
+                        <br><br>
+                        <div class="example-small-box mat-elevation-z4">
+                            <mat-card>
+                                <mat-card-title>Add New Project</mat-card-title>
+                                <mat-card-content>
+                                    <form [formGroup]="formProject" (ngSubmit)="submitProject(toInput1,toInput2)">
+                                        <mat-grid-list cols="3" rowHeight="3:1">
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <input type="text" matInput placeholder="Project New Name"
+                                                            formControlName="projectName">
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <input type="text" matInput placeholder="Client"
+                                                            formControlName="client">
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <mat-label>Deadline</mat-label>
+                                                        <input #toInput1 matInput [matDatepicker]="picker1"
+                                                            (dateInput)="addEvent1('Deadline', $event)">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker1">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #picker1></mat-datepicker>
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <mat-label>Issue Date</mat-label>
+                                                        <input #toInput2 matInput [matDatepicker]="picker2"
+                                                            (dateInput)="addEvent2('Issue Date', $event)">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker2">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #picker2></mat-datepicker>
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <mat-label>Project Description</mat-label>
+                                                        <textarea formControlName="description" matInput></textarea>
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <mat-label>Comments</mat-label>
+                                                        <textarea formControlName="comments" matInput></textarea>
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                        </mat-grid-list>
+                                        <div class="button">
+                                            <button type="submit" mat-raised-button color="primary">Send</button>
+
+                                        </div>
+                                    </form>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Add Bug">
+                    <div class="example-large-box mat-elevation-z4">
+                        <br><br>
+                        <div class="example-small-box mat-elevation-z4">
+                            <mat-card>
+                                <mat-card-title>Add Bug</mat-card-title>
+                                <mat-card-content>
+                                    <form [formGroup]="formBug" (ngSubmit)="submitBug()">
+                                        <mat-grid-list cols="3" rowHeight="6:1">
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <input type="text" matInput placeholder="Bug Ref"
+                                                            formControlName="bugRef">
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <mat-label>Bug Type</mat-label>
+                                                        <mat-select (selectionChange)="changeType($event.value)"
+                                                            [formControl]="bugTypeCtrl">
+                                                            <mat-option *ngFor="let bug of bugTypes"
+                                                                [value]="bug.bugType">
+                                                                {{bug.bugType}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <mat-label>Bug Severity</mat-label>
+                                                        <mat-select (selectionChange)="changeSeverity($event.value)"
+                                                            [formControl]="severityCtrl">
+                                                            <mat-option *ngFor="let severity of serverities"
+                                                                [value]="severity.severity">
+                                                                {{severity.severity}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <mat-label>Bug Status</mat-label>
+                                                        <mat-select (selectionChange)="changeStatus($event.value)"
+                                                            [formControl]="statusCtrl">
+                                                            <mat-option *ngFor="let status of statuses"
+                                                                [value]="status.status">
+                                                                {{status.status}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <input type="text" matInput placeholder="Bug Enitiatior"
+                                                            formControlName="initiator">
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                            <mat-grid-tile>
+                                                <p>
+                                                    <mat-form-field>
+                                                        <input type="text" matInput placeholder="Tester"
+                                                            formControlName="tester">
+                                                    </mat-form-field>
+                                                </p>
+                                            </mat-grid-tile>
+                                        </mat-grid-list>
+                                        <div class="button">
+                                            <button type="submit" mat-raised-button color="primary">Send</button>
+                                        </div>
+                                    </form>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Project Status">
+                    <br><br>
+                    <div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Project" aria-label="Project">
+                                        <mat-select (selectionChange)="projectStatusProject($event.value)">
+                                            <mat-option *ngFor="let project of projects" [value]="project.projectName">
+                                                {{project.projectName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-3">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Sprint" aria-label="Sprint">
+                                        <mat-select (selectionChange)="projectStatusSprint($event.value)">
+                                            <mat-option *ngFor="let s of projectStatusSpr" [value]="s">
+                                                {{s}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-6">
+                                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                        [options]="barChartOptions" [plugins]="barChartPlugins"
+                                        [legend]="barChartLegend" [chartType]="barChartType">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="User Status">
+                    <div class="example-large-box mat-elevation-z4">
+                        <br><br>
+                        <div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <mat-form-field>
+                                            <input matInput placeholder="User" aria-label="User">
+                                            <mat-select (selectionChange)="userStatusUser($event.value)">
+                                                <mat-option *ngFor="let user of userData" [value]="user.name">
+                                                    {{user.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-2">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Project" aria-label="Project">
+                                            <mat-select (selectionChange)="userStatusProject($event.value)">
+                                                <mat-option *ngFor="let project of projects"
+                                                    [value]="project.projectName">
+                                                    {{project.projectName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-2">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Sprint" aria-label="Sprint">
+                                            <mat-select (selectionChange)="userStatusSprint($event.value)">
+                                                <mat-option *ngFor="let s of userStatusSpr" [value]="s">
+                                                    {{s}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-6">
+                                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                            [options]="barChartOptions" [plugins]="barChartPlugins"
+                                            [legend]="barChartLegend" [chartType]="barChartType">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Bug Status">
+                    <div class="example-large-box mat-elevation-z4">
+                        <br><br>
+                        <div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Bug Ref" aria-label="Bug Ref">
+                                            <mat-select (selectionChange)="catchBugRef($event.value)">
+                                                <mat-option *ngFor="let bug of bugData" [value]="bug.ref">
+                                                    {{bug.ref}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+
+                                        <mat-card class="example-card mat-elevation-z4">
+                                            <mat-card-header>
+                                                <div mat-card-avatar class="example-header-image"></div>
+                                                <mat-card-title><span class="material-icons">
+                                                    bar_chart
+                                                </span> Severity</mat-card-title>
+                                            </mat-card-header>
+                                            
+                                            <mat-card-content>
+                                                <p>
+                                                    {{se}}
+                                                </p>
+                                            </mat-card-content>
+                                        </mat-card>
+
+                                    </div>
+                                    <div class="col">
+
+                                        <mat-card class="example-card mat-elevation-z4">
+                                            <mat-card-header>
+                                                <div mat-card-avatar class="example-header-image"></div>
+                                                <mat-card-title><span class="material-icons">
+                                                    show_chart
+                                                </span> Status</mat-card-title>
+                                            </mat-card-header>
+                                            
+                                            <mat-card-content>
+                                                <p>
+                                                    {{st}}
+                                                </p>
+                                            </mat-card-content>
+                                        </mat-card>
+
+                                    </div>
+                                    <div class="col">
+
+                                        <mat-card class="example-card mat-elevation-z4">
+                                            <mat-card-header>
+                                                <div mat-card-avatar class="example-header-image"></div>
+                                                <mat-card-title> <span class="material-icons">
+                                                    person
+                                                </span>Tester</mat-card-title>
+                                            </mat-card-header>
+                                            
+                                            <mat-card-content>
+                                                <p>
+                                                    {{te}}
+                                                </p>
+                                            </mat-card-content>
+                                        </mat-card>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
